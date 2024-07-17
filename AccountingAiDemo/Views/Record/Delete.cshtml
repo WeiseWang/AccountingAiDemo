@@ -1,0 +1,47 @@
+@model Record
+
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "_Layout";
+}
+
+<h1>刪除</h1>
+
+<h3>您確定要刪除這筆資料嗎？</h3>
+<div>
+    <h4>資料</h4>
+    <hr />
+    <dl class="row">
+
+        <dt class="col-sm-2">
+            標題
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+        <dt class="col-sm-2">
+            金額
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Amount)
+        </dd>
+        <dt class="col-sm-2">
+            日期和時間
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DateAndTime)
+        </dd>
+        <dt class="col-sm-2">
+            類別
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Category)
+        </dd>
+    </dl>
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="刪除" class="btn btn-danger" /> |
+        <a asp-action="Index">返回列表</a>
+    </form>
+</div>

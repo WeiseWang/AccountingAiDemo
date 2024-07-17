@@ -1,0 +1,94 @@
+@model IEnumerable<Record>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "_Layout";
+}
+
+<h1>Index</h1>
+
+
+
+
+<p class="text-right">
+    <a asp-action="Create" class="btn btn-primary">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                標題
+            </th>
+            <th>
+                金額
+            </th>
+            <th>
+                日期和時間
+            </th>
+            <th>
+                類別
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Amount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateAndTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Category)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-primary">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<script>
+    // 使用JavaScript或jQuery發送API請求並處理回傳的結果
+    // 這裡假設您使用jQuery來簡化程式碼
+    $(document).ready(function () {
+        console.log('Document is ready.');
+        // 發送API請求
+        $.ajax({
+            url: '/api/record', // 替換為您的API路徑
+            method: 'GET',
+            success: function (data) {
+                // 清空原有的表格內容
+                $('#recordTable tbody').empty();
+
+                // 將API回傳的結果追加到表格中
+                $.each(data, function (index, item) {
+                    var row = '<tr>' +
+                        '<td>' + item.Title + '</td>' +
+                        '<td>' + item.Amount + '</td>' +
+                        '<td>' + item.DateAndTime + '</td>' +
+                        '<td>' + item.Category + '</td>' +
+                        '<td>' +
+                        '<a href="/Record/Edit/' + item.Id + '" class="btn btn-primary">Edit</a> | ' +
+                        '<a href="/Record/Details/' + item.Id + '" class="btn btn-primary">Details</a> | ' +
+                        '<a href="/Record/Delete/' + item.Id + '" class="btn btn-danger">Delete</a>' +
+                        '</td>' +
+                        '</tr>';
+
+                    $('#recordTable tbody').append(row);
+                });
+            },
+            error: function () {
+                // 處理錯誤情況
+            }
+        });
+    });
+</script>
